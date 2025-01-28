@@ -40,7 +40,7 @@ def main():
 
                 # Get the completion response
                 completion = client.chat.completions.create(
-                    model="llama-3.3-70b-specdec",
+                    model="deepseek-r1-distill-llama-70b",
                     messages=messages,
                     temperature=1,
                     max_completion_tokens=500,
