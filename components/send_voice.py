@@ -1,10 +1,14 @@
 import requests
 import streamlit as st
 import os
-from datetime import datetime
 
 def send_voice_to_server(audio_data, base_dir="recorded"):
     try:
+        # Validate if audio data is provided
+        if not audio_data:
+            st.warning("No audio data provided. Please record or upload a file before sending.")
+            return None
+
         # Ensure the directory exists
         os.makedirs(base_dir, exist_ok=True)
         
@@ -22,8 +26,6 @@ def send_voice_to_server(audio_data, base_dir="recorded"):
         # Save the audio data
         with open(filename, "wb") as f:
             f.write(audio_data)
-            
-        st.success(f"Waiting for cloned voice audio...")
 
         # Send the file to the FastAPI server
         try:
