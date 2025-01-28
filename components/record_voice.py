@@ -6,8 +6,8 @@ def initialize_session():
         st.session_state.recorded_audio_blob = None
 
     # Create recorded directory if it doesn't exist
-    if not os.path.exists('recorded'):
-        os.makedirs('recorded')
+    if not os.path.exists('uploads'):
+        os.makedirs('uploads')
 
 def handle_voice_upload():
     initialize_session()

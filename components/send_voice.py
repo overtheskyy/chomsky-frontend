@@ -2,7 +2,7 @@ import requests
 import streamlit as st
 import os
 
-def send_voice_to_server(audio_data, base_dir="recorded"):
+def send_voice_to_server(audio_data, base_dir="uploads"):
     try:
         # Validate if audio data is provided
         if not audio_data:
