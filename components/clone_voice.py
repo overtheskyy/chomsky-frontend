@@ -1,35 +1,27 @@
-# components/clone_voice.py
-import requests
 import os
+import requests
 
-def generate_voice_clone():
-    # Define the text to generate TTS
-    texts = {
-        "en": "The moon haunts you.",  # Example text in English
+def generate_voice_clone(text: str, language: str) -> str:
+    # Define payload for the cloning API
+    payload = {
+        language: text,  # Pass the selected language and text here
     }
 
-    # Send a request to the /clone endpoint to generate TTS
-    clone_response = requests.post(
-        "http://localhost:8080/clone",
-        json=texts
-    )
-
-    # If request fails, raise an exception
-    if clone_response.content is None:
-        raise Exception("Failed to generate TTS. No response received.")
+    # API endpoint for voice cloning
+    api_url = "http://localhost:8080/clone"
+    response = requests.post(api_url, json=payload)
 
     # Ensure the 'cloned' directory exists
     cloned_dir = "cloned"
-    if not os.path.exists(cloned_dir):
-        os.makedirs(cloned_dir)
+    os.makedirs(cloned_dir, exist_ok=True)
 
-    # Save and play the generated TTS audio
+    # Save the generated audio file
     output_file_path = os.path.join(cloned_dir, "output.wav")
-    with open(output_file_path, "wb") as f:
-        f.write(clone_response.content)
+    with open(output_file_path, "wb") as audio_file:
+        audio_file.write(response.content)
 
-    # Check if the file was saved correctly
+    # Verify file creation
     if not os.path.exists(output_file_path):
-        raise Exception(f"Error: The TTS audio file '{output_file_path}' was not created.")
+        raise Exception(f"The TTS audio file '{output_file_path}' was not created.")
 
     return output_file_path
