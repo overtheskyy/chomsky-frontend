@@ -1,0 +1,5 @@
+streamlit==1.41.1
+protobuf==3.20.0
+altair==4.0.0
+click==7.1.2
+websockets==11.0.3
